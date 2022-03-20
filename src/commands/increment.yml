@@ -17,5 +17,9 @@ parameters:
     description: "Hello to whom?"
 steps:
   - run:
+      environment:
+        PARAM_TOKEN: <<parameters.token>>
+        PARAM_USERNAME: <<parameters.username>>
+        PARAM_GRAPH_ID: <<parameters.graph-id>>
       name: Hello Greeting
-      command: curl -X PUT "https://pixe.la/v1/users/<<parameters.username>>/graphs/<<parameters.graph-id>>/increment" -H "X-USER-TOKEN:<<parameters.token>>" -H 'Content-Length:0'
+      command: <<include(scripts/increment.sh)>>
