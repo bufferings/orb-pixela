@@ -17,9 +17,5 @@ parameters:
     description: "Hello to whom?"
 steps:
   - run:
-      environment:
-        PARAM_TOKEN: <<parameters.token>>
-        PARAM_USERNAME: <<parameters.username>>
-        PARAM_GRAPH_ID: <<parameters.graph-id>>
       name: Hello Greeting
       command: <<include(scripts/increment.sh)>>

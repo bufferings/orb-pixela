@@ -1,5 +1,5 @@
 Increment() {
-    curl -X PUT "https://pixe.la/v1/users/${PARAM_USERNAME}/graphs/${PARAM_GRAPH_ID}/increment" -H "X-USER-TOKEN:${PARAM_TOKEN}" -H 'Content-Length:0'
+    curl -X PUT "https://pixe.la/v1/users/<<parameters.username>>/graphs/<<parameters.graph-id>>/increment" -H "X-USER-TOKEN:<<parameters.token>>" -H 'Content-Length:0'
 }
 
 # Will not run if sourced for bats-core tests.
