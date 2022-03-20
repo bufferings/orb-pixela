@@ -1,0 +1,25 @@
+description: >
+  This command echos "Hello World" using file inclusion.
+# What will this command do?
+# Descriptions should be short, simple, and clear.
+parameters:
+  token:
+    type: string
+    default: "${PIXELA_TOKEN}"
+    description: "Hello to whom?"
+  username:
+    type: string
+    default: "${PIXELA_USERNAME}"
+    description: "Hello to whom?"
+  graph-id:
+    type: string
+    default: "${PIXELA_GRAPH_ID}"
+    description: "Hello to whom?"
+steps:
+  - run:
+      environment:
+        PARAM_TOKEN: <<parameters.token>>
+        PARAM_USERNAME: <<parameters.username>>
+        PARAM_GRAPH_ID: <<parameters.graph-id>>
+      name: Hello Greeting
+      command: <<include(scripts/increment.sh)>>
