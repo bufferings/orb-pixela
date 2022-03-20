@@ -18,4 +18,4 @@ parameters:
 steps:
   - run:
       name: Hello Greeting
-      command: <<include(scripts/increment.sh)>>
+      command: curl -X PUT "https://pixe.la/v1/users/<<parameters.username>>/graphs/<<parameters.graph-id>>/increment" -H "X-USER-TOKEN:<<parameters.token>>" -H 'Content-Length:0'
