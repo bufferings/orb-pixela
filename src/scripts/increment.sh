@@ -6,7 +6,7 @@ Increment() {
     http_response=$(curl -s -X PUT -H "X-USER-TOKEN:${PARAM_TOKEN}" -H 'Content-Length:0' \
       "https://pixe.la/v1/users/${PARAM_USERNAME}/graphs/${PARAM_GRAPH_ID}/increment" \
       | jq '.isSuccess')
-    if [ "$http_response" != "200" ]; then
+    if [ "$http_response" != "true" ]; then
         return 22
     else
         return 0
