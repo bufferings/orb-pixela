@@ -15,11 +15,17 @@ parameters:
     type: string
     default: "${PIXELA_GRAPH_ID}"
     description: "Hello to whom?"
+  when:
+    type: enum
+    default: "on_success"
+    description: When to run the command.
+    enum: ["always", "on_fail", "on_success"]
 steps:
   - run:
-      environment:
-        PARAM_TOKEN: <<parameters.token>>
-        PARAM_USERNAME: <<parameters.username>>
-        PARAM_GRAPH_ID: <<parameters.graph-id>>
       name: Hello Greeting
-      command: <<include(scripts/decrement.sh)>>
+      when: << parameters.when >>
+      command: << include(scripts/decrement.sh) >>
+      environment:
+        PARAM_TOKEN: << parameters.token >>
+        PARAM_USERNAME: << parameters.username >>
+        PARAM_GRAPH_ID: << parameters.graph-id >>

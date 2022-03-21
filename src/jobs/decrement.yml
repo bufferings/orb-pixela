@@ -21,11 +21,8 @@ parameters:
     description: When to run the command.
     enum: ["always", "on_fail", "on_success"]
 steps:
-  - run:
-      name: Hello Greeting
+  - decrement:
+      token: << parameters.token >>
+      username: << parameters.username >>
+      graph-id: << parameters.graph-id >>
       when: << parameters.when >>
-      command: << include(scripts/increment.sh) >>
-      environment:
-        PARAM_TOKEN: << parameters.token >>
-        PARAM_USERNAME: << parameters.username >>
-        PARAM_GRAPH_ID: << parameters.graph-id >>
