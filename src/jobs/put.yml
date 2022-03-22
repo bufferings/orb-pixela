@@ -23,7 +23,7 @@ parameters:
 executor: default
 
 steps:
-  - decrement:
+  - put:
       token-envvar: << parameters.token-envvar >>
       username: << parameters.username >>
       graph-id: << parameters.graph-id >>

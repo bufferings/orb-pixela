@@ -1,10 +1,10 @@
-PARAM_TOKEN=$(eval "echo ${PARAM_TOKEN}")
-PARAM_USERNAME=$(eval "echo ${PARAM_USERNAME}")
-PARAM_GRAPH_ID=$(eval "echo ${PARAM_GRAPH_ID}")
+token=$(eval "echo \$$PARAM_TOKEN_ENVVAR")
+username=$(eval "echo $PARAM_USERNAME")
+graphID=$(eval "echo $PARAM_GRAPH_ID")
 
 Decrement() {
-    isSuccess=$(curl -s -X PUT -H "X-USER-TOKEN:${PARAM_TOKEN}" -H 'Content-Length:0' \
-      "https://pixe.la/v1/users/${PARAM_USERNAME}/graphs/${PARAM_GRAPH_ID}/decrement" \
+    isSuccess=$(curl -s -X PUT -H "X-USER-TOKEN:${token}" -H 'Content-Length:0' \
+      "https://pixe.la/v1/users/${username}/graphs/${graphID}/decrement" \
       | jq '.isSuccess')
     if [ "$isSuccess" != "true" ]; then
         return 22

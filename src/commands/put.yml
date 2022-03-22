@@ -20,11 +20,12 @@ parameters:
     description: When to run the command.
     enum: ["always", "on_fail", "on_success"]
 
-executor: default
-
 steps:
-  - decrement:
-      token-envvar: << parameters.token-envvar >>
-      username: << parameters.username >>
-      graph-id: << parameters.graph-id >>
+  - run:
+      name: Hello Greeting
       when: << parameters.when >>
+      command: << include(scripts/put.sh) >>
+      environment:
+        PARAM_TOKEN_ENVVAR: << parameters.token-envvar >>
+        PARAM_USERNAME: << parameters.username >>
+        PARAM_GRAPH_ID: << parameters.graph-id >>
