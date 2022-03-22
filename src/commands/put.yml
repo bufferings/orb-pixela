@@ -1,28 +1,34 @@
-description: >
-  This command echos "Hello World" using file inclusion.
+description: |
+  Update pixel quantity. It uses the following environment variables:
+  * PIXELA_DATE: yyyyMMdd
+  * PIXELA_QUANTITY: pixel quantity to set
+  * PIXELA_OPTIONAL_DATA: additional information for the pixel
+  It expects these values are set in the $BASH_ENV in the previous steps.
 
 parameters:
   token-envvar:
     type: env_var_name
     default: "PIXELA_TOKEN"
-    description: "Hello to whom?"
+    description: >
+      Environment variable name to get pixela token.
+      Please don't specify the token value, but the env var name.
   username:
     type: string
     default: "${PIXELA_USERNAME}"
-    description: "Hello to whom?"
+    description: "Pixela username."
   graph-id:
     type: string
     default: "${PIXELA_GRAPH_ID}"
-    description: "Hello to whom?"
+    description: "Pixela graph ID."
   when:
     type: enum
     default: "on_success"
-    description: When to run the command.
+    description: "When to run the command."
     enum: ["always", "on_fail", "on_success"]
 
 steps:
   - run:
-      name: Hello Greeting
+      name: Put
       when: << parameters.when >>
       command: << include(scripts/put.sh) >>
       environment:

@@ -1,28 +1,30 @@
 description: >
-  This command echos "Hello World" using file inclusion.
+  Decrement pixel quantity of the day.
 
 parameters:
   token-envvar:
     type: env_var_name
     default: "PIXELA_TOKEN"
-    description: "Hello to whom?"
+    description: >
+      Environment variable name to get pixela token.
+      Please don't specify the token value, but the env var name.
   username:
     type: string
     default: "${PIXELA_USERNAME}"
-    description: "Hello to whom?"
+    description: "Pixela username."
   graph-id:
     type: string
     default: "${PIXELA_GRAPH_ID}"
-    description: "Hello to whom?"
+    description: "Pixela graph ID."
   when:
     type: enum
     default: "on_success"
-    description: When to run the command.
+    description: "When to run the command."
     enum: ["always", "on_fail", "on_success"]
 
 steps:
   - run:
-      name: Hello Greeting
+      name: Decrement
       when: << parameters.when >>
       command: << include(scripts/decrement.sh) >>
       environment:

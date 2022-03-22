@@ -1,5 +1,6 @@
-description: >
-  This is a sample executor using Docker and Node.
+description: |
+  Base image for this Orb.
+  This Orb depends on curl and jq, so please install them when you use other images.
 
 parameters:
   tag:
