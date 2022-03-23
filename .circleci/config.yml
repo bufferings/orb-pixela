@@ -27,14 +27,14 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - pixela/put:
-          pre-steps:
-            - run:
-                command: |
-                  echo "export PIXELA_DATE=$(TZ=Asia/Tokyo date '+%Y%m%d' --date '1 day ago')" >> $BASH_ENV
-                  echo 'export PIXELA_QUANTITY=15' >> $BASH_ENV
       - pixela/increment
       - pixela/decrement
+      - run:
+          name: Set date and quantity
+          command: |
+            echo "export PIXELA_DATE=$(TZ=Asia/Tokyo date '+%Y%m%d' --date '1 day ago')" >> $BASH_ENV
+            echo 'export PIXELA_QUANTITY=15' >> $BASH_ENV
+      - pixela/put
 
 workflows:
   # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
