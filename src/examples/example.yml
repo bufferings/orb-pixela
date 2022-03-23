@@ -1,13 +1,35 @@
-description: >
-  Sample example description.
-# Provide a use-case based example for using this orb.
-# Everything in the `usage` section will be displayed in the orb registry.
-# Comments are not retained.
+description: |
+  You can just call "pixela/increment" and "pixela/decrement" job with the following env vars
+  * PIXELA_TOKEN
+  * PIXELA_USERNAME
+  * PIXELA_GRAPH_ID
+
+  You can use parameter if you want to update different graphs.
+
+  You can call "pixela/put" job with "pre-steps" to pass date and quantity through the $BASH_ENV
+  * PIXELA_DATE (yyyyMMdd)
+  * PIXELA_QUANTITY
+
+  All the three jobs have "when" parameter
+  so that you can choose when to execute the step if you use "pre-steps".
+
 usage:
   version: 2.1
   orbs:
-    <orb-name>: <namespace>/<orb-name>@1.2.3
+    pixela: bufferings/pixela@0.1.0
   workflows:
-    use-my-orb:
+    envvars-example:
       jobs:
-        - <orb-name>/<job-name>
+        - pixela/increment
+    parameters-example:
+      jobs:
+        - pixela/decrement:
+            graph-id: my-graph-id
+    put-example:
+      jobs:
+      - pixela/put:
+          pre-steps:
+            - run:
+                command: |
+                  echo "export PIXELA_DATE=20220320" >> $BASH_ENV
+                  echo 'export PIXELA_QUANTITY=15' >> $BASH_ENV

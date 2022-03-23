@@ -1,11 +1,14 @@
-description: >
-  This is a sample executor using Docker and Node.
-docker:
-  - image: 'cimg/node:<<parameters.tag>>'
+description: |
+  Base image for this Orb.
+  This Orb depends on curl and jq, so please install them when you use other images.
+
 parameters:
   tag:
-    default: lts
-    description: >
-      Pick a specific circleci/node image variant:
-      https://hub.docker.com/r/cimg/node/tags
     type: string
+    default: stable
+    description: >
+      Pick a specific cimg/base image variant:
+      https://hub.docker.com/r/cimg/base/tags
+
+docker:
+  - image: 'cimg/base:<< parameters.tag >>'

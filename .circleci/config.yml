@@ -1,10 +1,8 @@
 version: 2.1
 
 orbs:
-  # Replace this with your own!
   pixela: bufferings/pixela@<<pipeline.parameters.dev-orb-version>>
   orb-tools: circleci/orb-tools@10.0
-  bats: circleci/bats@1.0
   shellcheck: circleci/shellcheck@2.0
 
 # Pipeline Parameters
@@ -28,11 +26,15 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - checkout
-      # "greet" is a sample command packaged with this orb config.
-      # This sample integration test will run as long as the greet command exists. Once you remove the greet command you should remove this line.
-      # Push new changes first, before adding new tests to your config.
-      - pixela/greet
+      - pixela/increment
+      - pixela/decrement
+      - pixela/increment
+      - run:
+          name: Set date and quantity
+          command: |
+            echo "export PIXELA_DATE=$(TZ=Asia/Tokyo date '+%Y%m%d' --date '1 day ago')" >> $BASH_ENV
+            echo 'export PIXELA_QUANTITY=15' >> $BASH_ENV
+      - pixela/put
 
 workflows:
   # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
@@ -45,9 +47,6 @@ workflows:
       - shellcheck/check:
           dir: ./src/scripts
           exclude: SC2148
-      # optional: Run BATS tests against your scripts
-      - bats/run:
-          path: ./src/tests
       # Publish development version(s) of the orb.
       - orb-tools/publish-dev:
           orb-name: bufferings/pixela
@@ -55,7 +54,6 @@ workflows:
           requires:
             - orb-tools/lint
             - orb-tools/pack
-            - bats/run
             - shellcheck/check
       # Trigger an integration workflow to test the
       # dev:${CIRCLE_SHA1:0:7} version of your orb
@@ -91,5 +89,4 @@ workflows:
           filters:
             branches:
               only:
-                - master
                 - main

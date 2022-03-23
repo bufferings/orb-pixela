@@ -1,5 +1,5 @@
 description: >
-  Increment pixel quantity of the day.
+  Decrement pixel quantity of the day.
 
 parameters:
   token-envvar:
@@ -24,9 +24,9 @@ parameters:
 
 steps:
   - run:
-      name: Increment
+      name: Decrement
       when: << parameters.when >>
-      command: << include(scripts/increment.sh) >>
+      command: << include(scripts/decrement.sh) >>
       environment:
         PARAM_TOKEN_ENVVAR: << parameters.token-envvar >>
         PARAM_USERNAME: << parameters.username >>

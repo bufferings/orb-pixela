@@ -1,5 +1,9 @@
-description: >
-  Increment pixel quantity of the day.
+description: |
+  Update pixel quantity. It uses the following environment variables:
+  * PIXELA_DATE: yyyyMMdd
+  * PIXELA_QUANTITY: pixel quantity to set
+  * PIXELA_OPTIONAL_DATA: additional information for the pixel
+  It expects these values are set in the $BASH_ENV in the previous steps.
 
 parameters:
   token-envvar:
@@ -24,9 +28,9 @@ parameters:
 
 steps:
   - run:
-      name: Increment
+      name: Put
       when: << parameters.when >>
-      command: << include(scripts/increment.sh) >>
+      command: << include(scripts/put.sh) >>
       environment:
         PARAM_TOKEN_ENVVAR: << parameters.token-envvar >>
         PARAM_USERNAME: << parameters.username >>

@@ -1,5 +1,5 @@
 description: >
-  Increment pixel quantity of the day.
+  Decrement pixel quantity of the day.
 
 parameters:
   token-envvar:
@@ -22,12 +22,11 @@ parameters:
     description: "When to run the command."
     enum: ["always", "on_fail", "on_success"]
 
+executor: default
+
 steps:
-  - run:
-      name: Increment
+  - decrement:
+      token-envvar: << parameters.token-envvar >>
+      username: << parameters.username >>
+      graph-id: << parameters.graph-id >>
       when: << parameters.when >>
-      command: << include(scripts/increment.sh) >>
-      environment:
-        PARAM_TOKEN_ENVVAR: << parameters.token-envvar >>
-        PARAM_USERNAME: << parameters.username >>
-        PARAM_GRAPH_ID: << parameters.graph-id >>
