@@ -28,6 +28,7 @@ jobs:
     steps:
       - pixela/increment
       - pixela/decrement
+      - pixela/increment
       - run:
           name: Set date and quantity
           command: |
