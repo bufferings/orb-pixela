@@ -10,13 +10,14 @@ description: |
   * PIXELA_DATE (yyyyMMdd)
   * PIXELA_QUANTITY
 
-  All the three jobs have "when" parameter
-  so that you can choose when to execute the step if you use "pre-steps".
+  All the three jobs have "when" parameter so that you can choose when to execute the step if you use "pre-steps".
+
+  Working example → https://github.com/bufferings/orb-pixela-example
 
 usage:
   version: 2.1
   orbs:
-    pixela: bufferings/pixela@0.1.0
+    pixela: bufferings/pixela@<please set the latest version>
   workflows:
     envvars-example:
       jobs:
@@ -24,12 +25,12 @@ usage:
     parameters-example:
       jobs:
         - pixela/decrement:
-            graph-id: my-graph-id
+            graph-id: another-graph-id
     put-example:
       jobs:
       - pixela/put:
           pre-steps:
             - run:
                 command: |
-                  echo "export PIXELA_DATE=20220320" >> $BASH_ENV
+                  echo "export PIXELA_DATE=$(TZ=Asia/Tokyo date '+%Y%m%d' --date '1 day ago')" >> $BASH_ENV
                   echo 'export PIXELA_QUANTITY=15' >> $BASH_ENV
